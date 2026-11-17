@@ -1,0 +1,865 @@
+<!doctype html>
+<html>
+  <head>
+    <title>frontend-note.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+    <style>
+      /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+      /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+      body {
+        font-family: var(
+          --vscode-markdown-font-family,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe WPC",
+          "Segoe UI",
+          "Ubuntu",
+          "Droid Sans",
+          sans-serif
+        );
+        font-size: var(--vscode-markdown-font-size, 14px);
+        padding: 0 26px;
+        line-height: var(--vscode-markdown-line-height, 22px);
+        word-wrap: break-word;
+      }
+
+      #code-csp-warning {
+        position: fixed;
+        top: 0;
+        right: 0;
+        color: white;
+        margin: 16px;
+        text-align: center;
+        font-size: 12px;
+        font-family: sans-serif;
+        background-color: #444444;
+        cursor: pointer;
+        padding: 6px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+      }
+
+      #code-csp-warning:hover {
+        text-decoration: none;
+        background-color: #007acc;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      body.scrollBeyondLastLine {
+        margin-bottom: calc(100vh - 22px);
+      }
+
+      body.showEditorSelection .code-line {
+        position: relative;
+      }
+
+      body.showEditorSelection .code-active-line:before,
+      body.showEditorSelection .code-line:hover:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -12px;
+        height: 100%;
+      }
+
+      body.showEditorSelection li.code-active-line:before,
+      body.showEditorSelection li.code-line:hover:before {
+        left: -30px;
+      }
+
+      .vscode-light.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .vscode-light.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.4);
+      }
+
+      .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-dark.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .vscode-dark.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 160, 0, 0.7);
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 160, 0, 1);
+      }
+
+      .vscode-high-contrast.showEditorSelection
+        .code-line
+        .code-line:hover:before {
+        border-left: none;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+      }
+
+      hr {
+        border: 0;
+        height: 2px;
+        border-bottom: 2px solid;
+      }
+
+      h1 {
+        padding-bottom: 0.3em;
+        line-height: 1.2;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+      }
+
+      table > thead > tr > th,
+      table > thead > tr > td,
+      table > tbody > tr > th,
+      table > tbody > tr > td {
+        padding: 5px 10px;
+      }
+
+      table > tbody > tr + tr > td {
+        border-top: 1px solid;
+      }
+
+      blockquote {
+        margin: 0 7px 0 5px;
+        padding: 0 16px 0 10px;
+        border-left-width: 5px;
+        border-left-style: solid;
+      }
+
+      code {
+        font-family:
+          Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace,
+          "Droid Sans Fallback";
+        font-size: 1em;
+        line-height: 1.357em;
+      }
+
+      body.wordWrap pre {
+        white-space: pre-wrap;
+      }
+
+      pre:not(.hljs),
+      pre.hljs code > div {
+        padding: 16px;
+        border-radius: 3px;
+        overflow: auto;
+      }
+
+      pre code {
+        color: var(--vscode-editor-foreground);
+        tab-size: 4;
+      }
+
+      /** Theming */
+
+      .vscode-light pre {
+        background-color: rgba(220, 220, 220, 0.4);
+      }
+
+      .vscode-dark pre {
+        background-color: rgba(10, 10, 10, 0.4);
+      }
+
+      .vscode-high-contrast pre {
+        background-color: rgb(0, 0, 0);
+      }
+
+      .vscode-high-contrast h1 {
+        border-color: rgb(0, 0, 0);
+      }
+
+      .vscode-light table > thead > tr > th {
+        border-color: rgba(0, 0, 0, 0.69);
+      }
+
+      .vscode-dark table > thead > tr > th {
+        border-color: rgba(255, 255, 255, 0.69);
+      }
+
+      .vscode-light h1,
+      .vscode-light hr,
+      .vscode-light table > tbody > tr + tr > td {
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+
+      .vscode-dark h1,
+      .vscode-dark hr,
+      .vscode-dark table > tbody > tr + tr > td {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+    </style>
+
+    <style>
+      /* Tomorrow Theme */
+      /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+      /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+      /* Tomorrow Comment */
+      .hljs-comment,
+      .hljs-quote {
+        color: #8e908c;
+      }
+
+      /* Tomorrow Red */
+      .hljs-variable,
+      .hljs-template-variable,
+      .hljs-tag,
+      .hljs-name,
+      .hljs-selector-id,
+      .hljs-selector-class,
+      .hljs-regexp,
+      .hljs-deletion {
+        color: #c82829;
+      }
+
+      /* Tomorrow Orange */
+      .hljs-number,
+      .hljs-built_in,
+      .hljs-builtin-name,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params,
+      .hljs-meta,
+      .hljs-link {
+        color: #f5871f;
+      }
+
+      /* Tomorrow Yellow */
+      .hljs-attribute {
+        color: #eab700;
+      }
+
+      /* Tomorrow Green */
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-bullet,
+      .hljs-addition {
+        color: #718c00;
+      }
+
+      /* Tomorrow Blue */
+      .hljs-title,
+      .hljs-section {
+        color: #4271ae;
+      }
+
+      /* Tomorrow Purple */
+      .hljs-keyword,
+      .hljs-selector-tag {
+        color: #8959a8;
+      }
+
+      .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #4d4d4c;
+        padding: 0.5em;
+      }
+
+      .hljs-emphasis {
+        font-style: italic;
+      }
+
+      .hljs-strong {
+        font-weight: bold;
+      }
+    </style>
+
+    <style>
+      /*
+ * Markdown PDF CSS
+ */
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu",
+          "Droid Sans", sans-serif, "Meiryo";
+        padding: 0 12px;
+      }
+
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+      }
+
+      blockquote {
+        background: rgba(127, 127, 127, 0.1);
+        border-color: rgba(0, 122, 204, 0.5);
+      }
+
+      .emoji {
+        height: 1.4em;
+      }
+
+      code {
+        font-size: 14px;
+        line-height: 19px;
+      }
+
+      /* for inline code */
+      :not(pre):not(.hljs) > code {
+        color: #c9ae75; /* Change the old color so it seems less like an error */
+        font-size: inherit;
+      }
+
+      /* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+      .page {
+        page-break-after: always;
+      }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  </head>
+  <body>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme:
+          document.body.classList.contains("vscode-dark") ||
+          document.body.classList.contains("vscode-high-contrast")
+            ? "dark"
+            : "default",
+      });
+    </script>
+    <h1 id="html">HTML</h1>
+    <h2 id="整体结构">整体结构</h2>
+    <pre class="hljs"><code><div>&lt;!DOCTYPE html&gt;
+&lt;meta http-equiv=&quot;Content-type&quot; content=&quot;text/html;charset=UTF-8(编码格式)&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;CSS外部样式表文件地址&quot;&gt;
+&lt;script src=&quot;JS脚本地址&quot;&gt;&lt;/script&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;style&gt;
+            CSS选择器
+        &lt;/style&gt;
+        ...
+    &lt;/head&gt;
+    &lt;body&gt;
+        ...
+    &lt;/body&gt;
+&lt;/html&gt;
+</div></code></pre>
+    <h1 id="标签">标签<br /></h1>
+    <p>标签有单个和一对的</p>
+    <ol>
+      <li>标题<code>&lt;h1&gt;&lt;/h1&gt;</code>，1~6</li>
+      <li>段落<code>&lt;p&gt;&lt;/p&gt;</code></li>
+      <li>
+        无序列
+        <pre class="hljs"><code><div>&lt;ul&gt;
+    &lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</div></code></pre>
+      </li>
+      <li>
+        有序列
+        <pre class="hljs"><code><div>&lt;l&gt;
+   &lt;li&gt;&lt;/li&gt;
+&lt;/l&gt;
+</div></code></pre>
+      </li>
+      <li>
+        表格
+        <pre class="hljs"><code><div>&lt;table border=&quot;边框宽度&quot;&gt;
+    &lt;tr&gt;
+        &lt;th&gt;列标题1&lt;/th&gt;
+        ...
+    &lt;tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;列数据1&lt;/td&gt;
+        ...
+    &lt;tr&gt;
+&lt;/table&gt;
+</div></code></pre>
+      </li>
+      <li>按钮<code>&lt;bottom&gt;&lt;/bottom&gt;</code></li>
+      <li>
+        表单<br />
+        用户输入文本，单选多选等
+        <pre
+          class="hljs"
+        ><code><div>&lt;form action=&quot;按下提交后表单内容发送到的服务器位置&quot;&gt;
+    &lt;label for=&quot;对应input的id&quot;&gt;(input元素定义标注)
+    &lt;input type=&quot;text/password(隐藏输入)/radio(单选)/checkbox(多选)/submit(提交)&quot; placeholder=&quot;输入内容提示，输入就消失&quot; value=&quot;text输入时已经固定的输入值或者按钮中显示的值&quot; name=&quot;规定 &lt;input&gt;元素的名称，用以引用JavaScript中的元素，或在提交表单后引用表单数据&quot;&gt;输入框后对应的值
+&lt;/form&gt;
+</div></code></pre>
+      </li>
+      <li>
+        其他
+        <pre class="hljs"><code><div>&lt;b&gt;加粗&lt;/b&gt;
+&lt;i&gt;斜体&lt;/i&gt;
+&lt;u&gt;下划线&lt;/u&gt;
+&lt;s&gt;删除线&lt;/s&gt;
+&lt;br&gt;换行，可以写在任意文本中或标签之间
+&lt;hr&gt;分割线
+</div></code></pre>
+      </li>
+    </ol>
+    <h2 id="属性">属性<br /></h2>
+    <ol>
+      <li>
+        普适性属性<code
+          >&lt;标签 class=&quot;类&quot; id=&quot;id&quot;
+          style=&quot;CSS的修饰&quot;&gt;</code
+        >
+      </li>
+      <li>
+        链接<code
+          >&lt;a href=&quot;链接&quot;
+          target=&quot;新页面打开方式&quot;&gt;文字，点击就会跳转&lt;/a&gt;</code
+        >
+      </li>
+      <li>
+        图片<code
+          >&lt;img src=&quot;图片地址&quot;
+          alt=&quot;图像显示失败时的替代文本&quot;&gt;</code
+        >
+      </li>
+      <li>文字专有属性</li>
+    </ol>
+    <h2 id="区块">区块<br /></h2>
+    <ol>
+      <li>
+        行内元素：可以与其他元素显示在同一行，占据的空间与其内容占据空间相关
+      </li>
+      <li>块元素：单占一行，可以手动调整大小，通过添加</li>
+      <li>行内块元素：可以手动调整大小的行内元素</li>
+    </ol>
+    <h1 id="css">CSS<br /></h1>
+    <h2 id="导入方式">导入方式</h2>
+    <ol>
+      <li>内联样式`&lt;标签 style=&quot;属性名:属性值&quot;&gt;</li>
+      <li>内部样式表:写在style中的选择器</li>
+      <li>
+        外部样式表:写在外部CSS文件中的选择器，通过link标签导入 优先级:<strong
+          >内联&gt;内部&gt;外部</strong
+        >
+      </li>
+    </ol>
+    <h2 id="选择器">选择器<br /></h2>
+    <pre class="hljs"><code><div>选择对象{
+    属性名:属性值;
+    ...
+}
+</div></code></pre>
+    <p>选择器选择优先级<strong>id&gt;类&gt;标签</strong></p>
+    <ol>
+      <li>元素选择器<code>标签名{}</code></li>
+      <li>类选择器<code>.类名{}</code></li>
+      <li>id选择器<code>#id{}</code></li>
+      <li>通用选择器<code>*{}</code>选择全体</li>
+      <li>
+        子代选择器<code>父代(可以用上述三个) &gt; 子代{}</code
+        >选择直接属于父代中的子代，比如
+      </li>
+    </ol>
+    <pre class="hljs"><code><div>&lt;div&gt;
+    &lt;p&gt;&lt;/P&gt;
+&lt;/div&gt;
+</div></code></pre>
+    <ol start="6">
+      <li>
+        后代选择器<code>父代(可以用上述三个) 后代{}</code
+        >选择不直接属于父代中的后代，比如
+      </li>
+    </ol>
+    <pre class="hljs"><code><div>&lt;div&gt;
+    &lt;div&gt;
+        &lt;p&gt;&lt;/P&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</div></code></pre>
+    <ol start="7">
+      <li>
+        并集选择器<code>基准(可以用上述三个) + 对象{}</code>选择基准离最近的对象
+      </li>
+      <li>
+        伪类选择器<code>对象(可以用上述三个):条件(伪类){}</code>选择满足条件的对象，比如条件用hover时会对鼠标悬停的对象起作用
+      </li>
+      <li>
+        伪元素选择器<code>对象(可以用上述三个)::伪元素{}</code>选中对象的伪元素
+      </li>
+    </ol>
+    <h2 id="属性-1">属性<br /></h2>
+    <p>下面叙述除了基本的属性以外的内容</p>
+    <ol>
+      <li>
+        复合属性<br />
+        可以对属性设置多个值，设定属于该属性下不同属性的值<code
+          >font:bolder 50px 'KaiTi'</code
+        >
+      </li>
+      <li>
+        块，行内，行内块元素相互转换<code
+          >display:inline/block/inline-block</code
+        >
+      </li>
+    </ol>
+    <h2 id="盒子模型">盒子模型<br /></h2>
+    <p><img src="../picture/box-model.jpg" alt="盒子模型" /><br /></p>
+    <ol>
+      <li>content:内容</li>
+      <li>padding:内容与边框的距离</li>
+      <li>border:边框</li>
+      <li>
+        margin:边框与其他盒子的距离
+        <br />
+        padding,border,margin的属性设置中各个方向是复合属性，都是可以设定的，属性值按照上右下左，缺哪个会找对应另一边的
+      </li>
+    </ol>
+    <h2 id="标准流浮动定位">标准流，浮动，定位</h2>
+    <ol>
+      <li>
+        标准流<br />
+        html默认的排版
+      </li>
+      <li>
+        浮动<br />
+        在父元素内相对标准流移动，具有行内块特性<code>float=left(左对齐)/right(右对齐)</code>，会脱离标准流，也就是不占正常位<br />
+        可用<code>overflow:hidden</code>或者使用伪元素选择器让父元素自适应宽高
+      </li>
+      <li>
+        定位
+        <ul>
+          <li>相对定位，相对于原本位置移动，不脱离标准流</li>
+        </ul>
+        <pre class="hljs"><code><div>position:relative;
+left:   ;
+right:  ;
+top:    ;
+bottom: ;
+</div></code></pre>
+        <ul>
+          <li>
+            绝对定位，相对于父元素进行定位，脱离标准流<code
+              >position:absolute</code
+            >
+          </li>
+          <li>
+            固定定位，相对于浏览器窗口定位，固定在视窗的某处，脱离标准流<code
+              >position:fixed</code
+            >
+          </li>
+        </ul>
+      </li>
+    </ol>
+    <h1 id="js">JS<br /></h1>
+    <p>包裹在写于body中的<code>&lt;script&gt;&lt;/script&gt;</code>中</p>
+    <h2 id="输出">输出<br /></h2>
+    <ol>
+      <li>终端打印<code>console.log();</code></li>
+      <li>弹框<code>alert(&quot;&quot;)</code></li>
+      <li>带输入的弹框<code>prompt(&quot;&quot;)</code>返回值为输入内容</li>
+      <li>将标签写到body里<code>document.write()</code></li>
+    </ol>
+    <h2 id="变量">变量</h2>
+    <pre class="hljs"><code><div>var a;//函数作用域，全局变量
+let b=0/&quot;char&quot;/null;//限定范围作用域，只在所处{}/script中可用，局部变量
+const pi=3.14;//常量
+</div></code></pre>
+    <h2 id="分支与循环">分支与循环</h2>
+    <p>与C相同</p>
+    <h2 id="函数">函数</h2>
+    <pre class="hljs"><code><div>function name(参数){
+    ...
+    return   ;
+}
+
+//匿名函数，在用的时候才写
+function(){}
+
+//this作为函数实参表示函数触发时所在的位置
+</div></code></pre>
+    <h2 id="事件">事件<br /></h2>
+    <ol>
+      <li>常见事件</li>
+    </ol>
+    <table>
+      <thead>
+        <tr>
+          <th>事件</th>
+          <th>描述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>onclick</td>
+          <td>点击</td>
+        </tr>
+        <tr>
+          <td>onmouseover</td>
+          <td>鼠标经过</td>
+        </tr>
+        <tr>
+          <td>onmouseout</td>
+          <td>鼠标移出</td>
+        </tr>
+        <tr>
+          <td>onchange</td>
+          <td>文本内容改变</td>
+        </tr>
+        <tr>
+          <td>onselect</td>
+          <td>文本框选中</td>
+        </tr>
+        <tr>
+          <td>onfocus</td>
+          <td>光标聚焦</td>
+        </tr>
+        <tr>
+          <td>onblur</td>
+          <td>移开光标</td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+    <ol start="2">
+      <li>
+        事件绑定<br />
+        通过事件触发函数<br />
+        <ol>
+          <li>
+            html属性<code>&lt;标签 事件(全小写)=&quot;函数名&quot;&gt;</code>
+          </li>
+          <li>dom<code>变量.事件=函数名</code></li>
+          <li>addEventLIstener</li>
+        </ol>
+        <pre
+          class="hljs"
+        ><code><div>变量.addEventLIstener('事件',函数名,True/False)
+//最后的一个参数决定了事件传递方法
+//默认False冒泡(先触发子元素)，True捕获(先触发父元素)
+变量.removeEventListener('事件',函数名)
+</div></code></pre>
+      </li>
+    </ol>
+    <h1 id="dom">DOM<br /></h1>
+    <p>
+      提供动态操作html结构的接口，每个html标签/属性/文本都是一个节点,最外部的是document
+    </p>
+    <ol>
+      <li>
+        获取元素<code>变量=document.getElementById/ClassName/Name/TagName(标签名)(&quot;&quot;)</code>返回存储着对应元素的数组
+      </li>
+      <li>修改内容</li>
+    </ol>
+    <pre
+      class="hljs"
+    ><code><div>变量.innerHTML = &quot;内容&quot;//内容可以被HTML解读，也就是说可以传标签
+变量.innerText = &quot;内容&quot;//内容只作为纯文本，不会被HTML解读
+</div></code></pre>
+    <ol start="3">
+      <li>
+        <p>常用方法<br /></p>
+        <ol>
+          <li>
+            <p>
+              创建标签节点<code
+                >变量=document.createElement(&quot;p&quot;)</code
+              >
+            </p>
+          </li>
+          <li>
+            <p>
+              创建文本节点<code
+                >变量=document.createTextNode(&quot;文本&quot;)</code
+              >
+            </p>
+          </li>
+          <li>
+            <p>
+              返回指定属性值<code
+                >变量=变量.getAttribute(&quot;属性名&quot;)</code
+              >
+            </p>
+          </li>
+          <li>
+            <p>appendChild()向某个节点添加文本/标签</p>
+          </li>
+        </ol>
+        <pre
+          class="hljs"
+        ><code><div>var para = document.createElement(&quot;p&quot;);
+var node = document.createTextNode(&quot;这是一个新的段落。&quot;);
+para.appendChild(node);
+var element = document.getElementById(&quot;div1&quot;);
+element.appendChild(para);
+</div></code></pre>
+        <hr />
+        <ol start="5">
+          <li>removeChild()</li>
+        </ol>
+        <pre
+          class="hljs"
+        ><code><div>var parent = document.getElementById(&quot;div1&quot;);
+var child = document.getElementById(&quot;p1&quot;);
+parent.removeChild(child);
+</div></code></pre>
+        <hr />
+        <ol start="6">
+          <li>replaceChild()</li>
+        </ol>
+        <pre
+          class="hljs"
+        ><code><div>var para = document.createElement(&quot;p&quot;);
+var node = document.createTextNode(&quot;这是一个新的段落。&quot;);
+para.appendChild(node);
+var parent = document.getElementById(&quot;div1&quot;);
+var child = document.getElementById(&quot;p1&quot;);
+parent.replaceChild(para, child);
+</div></code></pre>
+        <hr />
+        <ol start="7">
+          <li>insertBefore()将新元素添加到前面</li>
+        </ol>
+        <pre
+          class="hljs"
+        ><code><div>var para = document.createElement(&quot;p&quot;);
+var node = document.createTextNode(&quot;这是一个新的段落。&quot;);
+para.appendChild(node);
+var element = document.getElementById(&quot;div1&quot;);
+var child = document.getElementById(&quot;p1&quot;);
+element.insertBefore(para, child);
+</div></code></pre>
+        <hr />
+      </li>
+    </ol>
+    <h1 id="移动端布局">移动端布局</h1>
+    <ol>
+      <li>
+        viewport
+        <code
+          >&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,
+          initial-scale=1.0, minimum-sacle=1.0, maximum-scale=1.0&quot;,
+          user-scalable=no&gt;</code
+        ><br />
+        <code>width=device-width</code
+        >将视口宽度设置为设备宽度，确保网页不会被缩放<br />
+        <code>scale</code>将缩放比例固定在1<br />
+        <code>user-scalable=no</code>让用户无法缩放网页<br />
+      </li>
+      <li>
+        rem<br />
+        倍数单位，让显示自动根据初始值适配网页大小<br />
+        然后根据网页宽度自适应计算初始值<br />
+      </li>
+    </ol>
+    <pre class="hljs"><code><div>&lt;script&gt;
+function resetHTMLFontSize(){
+    document.documentElement.style.fontSize = screen.size/10 + 'px'
+}
+
+resetHTMLFontSize();
+
+windows.onresize=resetHTMLFontSize();
+&lt;/script&gt;
+</div></code></pre>
+    <ol start="3">
+      <li>
+        flex<br />
+        子元素自适应排布的盒子(容器),可以设定如下的属性<br />
+        <ol>
+          <li>
+            flex-direction<br />
+            决定主轴方向<br />
+            <code
+              >flex-direction =
+              row(横轴左起点)/row-reverse(横轴右起点)/colume(纵轴上起点)/colume-reverse(纵轴下起点)</code
+            >
+          </li>
+          <li>
+            flex-wrap<br />
+            当一条轴线摆不下时的换行方式<br />
+            <code>flex-wrap = nowrap(不换行)/wrap/wrap-reverse</code>
+          </li>
+          <li>
+            justify-content<br />
+            与主轴对齐方式<br />
+            <code
+              >justify-content =
+              flex-start(对齐起点)/flex-end(对齐终点)/center(对齐中点)/space-between(两侧对齐起点终点，等间距排开)/space-around(与起点终点有间隔，等间距排开)</code
+            >
+          </li>
+          <li>
+            align-items<br />
+            与交叉轴(与主轴垂直)对齐方式<br />
+            <code
+              >align-items =
+              flex-start(对齐起点)/flex-end(对齐终点)/center(对齐中点)/baselin(子元素的第一行文字基线对齐)/stretch(占满容器高度)</code
+            >
+          </li>
+          <li>
+            align-content<br />
+            多根轴线的对齐方式<br />
+            <code
+              >justify-content =
+              flex-start(对齐起点)/flex-end(对齐终点)/center(对齐中点)/space-between(两侧对齐起点终点，等间距排开)/space-around(与起点终点有间隔，等间距排开)/stretch(占满容器高度)</code
+            >
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </body>
+</html>
